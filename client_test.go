@@ -29,9 +29,10 @@ func TestClientSearch(t *testing.T) {
 	client, err := NewClient("https://bugzilla.gnome.org")
 	assert.Nil(err)
 
-	bugs, err := client.Search(map[string]interface{}{"summary": "Kolab"})
+	query := map[string][]interface{}{"summary": []interface{}{"Kolab"}}
+	bugs, err := client.Search(query)
 
-	assert.Equal(10, len(bugs))
+	assert.Equal(11, len(bugs))
 }
 
 func TestClientQuery(t *testing.T) {
@@ -41,5 +42,5 @@ func TestClientQuery(t *testing.T) {
 	assert.Nil(err)
 
 	bugs, err := client.Query().Summary("Kolab").Result()
-	assert.Equal(10, len(bugs))
+	assert.Equal(11, len(bugs))
 }

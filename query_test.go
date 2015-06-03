@@ -2,7 +2,6 @@ package gorgojo
 
 import (
 	"github.com/stretchr/testify/assert"
-	"reflect"
 	"testing"
 )
 
@@ -14,13 +13,11 @@ func TestQueryMap(t *testing.T) {
 
 	query := client.Query().Summary("KDE").AssignedTo("duncan")
 
-	expected := map[string]interface{}{
-		"summary":     "KDE",
-		"assigned_to": "duncan",
+	expected := map[string][]interface{}{
+		"summary":     []interface{}{"KDE"},
+		"assigned_to": []interface{}{"duncan"},
 	}
-	if !reflect.DeepEqual(expected, query.QueryMap) {
-		t.Fail()
-	}
+	AssertDeepEqual(t, expected, query.QueryMap)
 }
 
 func TestQueryMapMultiple(t *testing.T) {
@@ -31,9 +28,9 @@ func TestQueryMapMultiple(t *testing.T) {
 
 	query := client.Query().Summary("KDE").Open()
 
-	expected := map[string]interface{}{
-		"summary": "KDE",
-		"status":  []string{},
+	expected := map[string][]interface{}{
+		"summary": []interface{}{"KDE"},
+		"status":  []interface{}{"new", "assigned", "needinfo", "reopened"},
 	}
 
 	AssertDeepEqual(t, expected, query.QueryMap)

@@ -5,15 +5,19 @@ package gorgojo
 //   query := client.Query().Summary("crashed").AssignedTo("john")
 type Query struct {
 	Client   *Client
-	QueryMap map[string]interface{}
+	QueryMap map[string][]interface{}
 }
 
 func NewQuery(client *Client) *Query {
-	return &Query{Client: client, QueryMap: make(map[string]interface{})}
+	return &Query{Client: client, QueryMap: make(map[string][]interface{})}
 }
 
 func (q *Query) appendQuery(key string, value interface{}) *Query {
-	q.QueryMap[key] = value
+	if _, ok := q.QueryMap[key]; !ok {
+		q.QueryMap[key] = make([]interface{}, 0)
+	}
+	// key already exists
+	q.QueryMap[key] = append(q.QueryMap[key], value)
 	return q
 }
 

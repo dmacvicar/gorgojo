@@ -32,7 +32,7 @@ func (c *Client) Version() (string, error) {
 	return ret.Version, nil
 }
 
-func (c *Client) Search(attrs map[string]interface{}) ([]Bug, error) {
+func (c *Client) Search(attrs map[string][]interface{}) ([]Bug, error) {
 	ret := struct {
 		Bugs []Bug `xmlrpc:"bugs"`
 	}{}
