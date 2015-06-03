@@ -11,12 +11,30 @@ type Client struct {
 }
 
 func NewClient(siteUrl string) (*Client, error) {
+	plugins := AllPlugins()
+
+	// convert shortcuts to real bugzilla site urls
+	var err error
+	for _, plugin := range plugins {
+		siteUrl, err = plugin.TransformSiteUrlHook(siteUrl)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	if _, err := url.Parse(siteUrl); err != nil {
 		return nil, err
 	}
 
-	client, _ := xmlrpc.NewClient(siteUrl+"/xmlrpc.cgi", nil)
+	// convert the site urls to APIs
+	for _, plugin := range plugins {
+		siteUrl, err = plugin.TransformApiUrlHook(siteUrl)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	client, _ := xmlrpc.NewClient(siteUrl + "/xmlrpc.cgi", nil)
 	return &Client{bzUrl: siteUrl, rpcClient: client}, nil
 }
 
