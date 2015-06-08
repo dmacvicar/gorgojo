@@ -21,6 +21,11 @@ func (q *Query) appendQuery(key string, value interface{}) *Query {
 	return q
 }
 
+// arbitrary field name
+func (q *Query) Field(key string, value interface{}) *Query {
+	return q.appendQuery(key, value)
+}
+
 // The login name of a user that a bug is assigned to.
 func (q *Query) AssignedTo(who string) *Query {
 	return q.appendQuery("assigned_to", who)
