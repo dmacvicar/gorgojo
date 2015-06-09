@@ -13,10 +13,10 @@ func NewQuery(client *Client) *Query {
 }
 
 func (q *Query) appendQuery(key string, value interface{}) *Query {
+	// key does not already exists
 	if _, ok := q.QueryMap[key]; !ok {
 		q.QueryMap[key] = make([]interface{}, 0)
 	}
-	// key already exists
 	q.QueryMap[key] = append(q.QueryMap[key], value)
 	return q
 }
