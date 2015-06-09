@@ -20,7 +20,7 @@ func TestTransformApiUrlHook(t *testing.T) {
 
 	newUrl, err = n.TransformApiUrlHook("http://bugzilla.suse.com")
 	assert.Nil(err)
-	assert.Equal("http://apibugzilla.suse.com", newUrl)
+	assert.Equal("http://apibugzilla.novell.com", newUrl)
 
 	newUrl, err = n.TransformApiUrlHook("http://bugzilla.gnome.org")
 	assert.Nil(err)

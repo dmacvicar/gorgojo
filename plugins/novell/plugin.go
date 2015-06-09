@@ -36,8 +36,8 @@ func (p novellPlugin) TransformSiteUrlHook(url string) (string, error) {
 }
 
 func (p novellPlugin) TransformApiUrlHook(urlStr string) (string, error) {
-	urlStr = strings.Replace(urlStr, "bugzilla.suse.com", "apibugzilla.suse.com", 1)
-	urlStr = strings.Replace(urlStr, "bugzilla.novell.com", "apibugzilla.novell.com", 1)
+	urlStr = strings.Replace(urlStr, "/bugzilla.suse.com", "/apibugzilla.novell.com", 1)
+	urlStr = strings.Replace(urlStr, "/bugzilla.novell.com", "/apibugzilla.novell.com", 1)
 
 	u, err := url.Parse(urlStr)
 	if err != nil {
