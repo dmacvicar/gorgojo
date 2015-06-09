@@ -49,6 +49,11 @@ func (q *Query) Open() *Query {
 	return q.Status("new").Status("assigned").Status("needinfo").Status("reopened")
 }
 
+// L3 bugs
+func (q *Query) L3() *Query {
+	return q.appendQuery("summary", "L3")
+}
+
 func (q *Query) Result() ([]Bug, error) {
 	return q.Client.Search(q.QueryMap)
 }
