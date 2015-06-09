@@ -46,7 +46,9 @@ func (q *Query) Status(status string) *Query {
 
 // Shortcut for all statuses that keep the bug "open"
 func (q *Query) Open() *Query {
-	return q.Status("new").Status("assigned").Status("needinfo").Status("reopened")
+	return q.Status("new").Status("assigned").
+		Status("needinfo").Status("reopened").
+		Status("confirmed")
 }
 
 // L3 bugs
