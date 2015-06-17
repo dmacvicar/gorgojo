@@ -30,7 +30,7 @@ func TestQueryMapMultiple(t *testing.T) {
 
 	expected := map[string][]interface{}{
 		"summary": []interface{}{"KDE"},
-		"status":  []interface{}{"new", "assigned", "needinfo", "reopened", "confirmed"},
+		"status":  []interface{}{"unconfirmed", "new", "confirmed", "in_progress", "reopened"},
 	}
 
 	AssertDeepEqual(t, expected, query.QueryMap)

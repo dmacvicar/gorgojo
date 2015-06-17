@@ -46,14 +46,14 @@ func (q *Query) Status(status string) *Query {
 
 // Shortcut for all statuses that keep the bug "open"
 func (q *Query) Open() *Query {
-	return q.Status("new").Status("assigned").
-		Status("needinfo").Status("reopened").
-		Status("confirmed")
+	return q.Status("unconfirmed").Status("new").
+		Status("confirmed").Status("in_progress").
+		Status("reopened")
 }
 
 // L3 bugs
 func (q *Query) L3() *Query {
-	return q.appendQuery("summary", "L3")
+	return q.Summary("L3")
 }
 
 func (q *Query) Result() ([]Bug, error) {
