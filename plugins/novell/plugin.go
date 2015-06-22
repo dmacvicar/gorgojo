@@ -44,6 +44,11 @@ func (p novellPlugin) TransformApiUrlHook(urlStr string) (string, error) {
 		return urlStr, err
 	}
 
+	if !strings.HasSuffix(u.Host, "suse.com") ||
+		!strings.HasSuffix(u.Host, "novell.com") {
+		return urlStr, nil
+	}
+
 	// add the credentials
 	if _, err := os.Stat(OscrcPath); os.IsNotExist(err) {
 		// no problem if there are not
