@@ -125,10 +125,10 @@ func parseAtomFeed(r io.Reader) ([]int, error) {
 	return ids, nil
 }
 
-func (c *Client) fetchNamedQueryFromUrl(urlStr string) ([]Bug, error) {
+func (c *Client) fetchNamedQueryFromUrl(urlStr string) (*Query, error) {
 	url, err := url.Parse(urlStr)
 	if err != nil {
-		return []Bug{}, err
+		return nil, err
 	}
 
 	// keep the credentials across redirects
@@ -148,12 +148,12 @@ func (c *Client) fetchNamedQueryFromUrl(urlStr string) ([]Bug, error) {
 	// get the atom feed
 	resp, err := client.Get(urlStr)
 	if err != nil {
-		return []Bug{}, err
+		return nil, err
 	}
 
 	ids, err := parseAtomFeed(resp.Body)
 	if err != nil {
-		return []Bug{}, err
+		return nil, err
 	}
 
 	// collect all the bug ids here
@@ -162,11 +162,11 @@ func (c *Client) fetchNamedQueryFromUrl(urlStr string) ([]Bug, error) {
 	for _, id := range ids {
 		query.Field("id", id)
 	}
-	return query.Result()
+	return query, nil
 }
 
 // retrieves the bug list for the named server-side query
-func (c *Client) FetchNamedQuery(name string) ([]Bug, error) {
+func (c *Client) FetchNamedQuery(name string) (*Query, error) {
 	url := c.namedQueryToUrl(name)
 	return c.fetchNamedQueryFromUrl(url)
 }

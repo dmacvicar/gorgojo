@@ -64,9 +64,10 @@ func disabledTestClientFetchNamedQuery(t *testing.T) {
 	client, err := NewClient("https://bugzilla.suse.com")
 	assert.Nil(err)
 
-	bugs, err := client.FetchNamedQuery("My Bugs")
+	query, err := client.FetchNamedQuery("My Bugs")
 	assert.Nil(err)
 
+	bugs, err := query.Result()
 	assert.Equal(8, len(bugs))
 }
 
