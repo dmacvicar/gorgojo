@@ -68,6 +68,7 @@ func (c *Client) Search(attrs map[string][]interface{}) ([]Bug, error) {
 	return ret.Bugs, nil
 }
 
+// returns a new query
 func (c *Client) Query() *Query {
 	return NewQuery(c)
 }
