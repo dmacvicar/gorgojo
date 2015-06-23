@@ -62,7 +62,7 @@ func TestCredentialsParsing(t *testing.T) {
 	assert := assert.New(t)
 
 	data := strings.NewReader(oscrc)
-	user, pass, err :=  ParseOscCredentials(data)
+	user, pass, err := ParseOscCredentials(data)
 
 	assert.Nil(err)
 	assert.Equal("foo", user)

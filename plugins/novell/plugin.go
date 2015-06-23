@@ -1,12 +1,12 @@
 package novell
 
 import (
+	"gopkg.in/ini.v1"
 	"io"
 	"io/ioutil"
 	"net/url"
 	"os"
 	"strings"
-	"gopkg.in/ini.v1"
 )
 
 const (
@@ -44,9 +44,10 @@ func (p novellPlugin) TransformApiUrlHook(urlStr string) (string, error) {
 		return urlStr, err
 	}
 
-	if !strings.HasSuffix(u.Host, "suse.com") ||
-		!strings.HasSuffix(u.Host, "novell.com") {
-		return urlStr, nil
+	if !strings.HasSuffix(u.Host, "suse.com") {
+		if !strings.HasSuffix(u.Host, "novell.com") {
+			return urlStr, nil
+		}
 	}
 
 	// add the credentials
@@ -62,7 +63,6 @@ func (p novellPlugin) TransformApiUrlHook(urlStr string) (string, error) {
 	u.User = url.UserPassword(user, pass)
 	return u.String(), nil
 }
-
 
 // returns the $HOME/.oscrc credentials
 func ParseOscCredentials(reader io.Reader) (string, string, error) {
@@ -81,7 +81,7 @@ func ParseOscCredentials(reader io.Reader) (string, string, error) {
 	}
 
 	section, err := cfg.GetSection(oscSection)
-		if err != nil {
+	if err != nil {
 		return username, password, err
 	}
 

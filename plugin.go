@@ -11,8 +11,6 @@ type Plugin interface {
 	TransformApiUrlHook(url string) (string, error)
 }
 
-
 func AllPlugins() []Plugin {
-	return []Plugin{ novell.CreatePlugin() }
+	return []Plugin{novell.CreatePlugin()}
 }
-
