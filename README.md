@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/dmacvicar/gorgojo.svg?branch=master)](https://travis-ci.org/dmacvicar/gorgojo)
+![maintained](https://img.shields.io/maintenance/yes/2016.svg)
 
 # Gorgojo, a Bugzilla Client for Golang
 
