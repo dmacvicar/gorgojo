@@ -22,7 +22,7 @@ func TestClientVersion(t *testing.T) {
 
 	version, err := client.Version()
 	assert.Nil(err)
-	assert.Equal("4.4.9", version)
+	assert.Equal("4.4.10", version)
 }
 
 func TestClientSearch(t *testing.T) {
